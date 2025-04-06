@@ -1,0 +1,16 @@
+C:\Users\edife\source\repos\Supermarket-mvp\bin\Debug\net8.0-windows\Supermarket-mvp.exe
+C:\Users\edife\source\repos\Supermarket-mvp\bin\Debug\net8.0-windows\Supermarket-mvp.deps.json
+C:\Users\edife\source\repos\Supermarket-mvp\bin\Debug\net8.0-windows\Supermarket-mvp.runtimeconfig.json
+C:\Users\edife\source\repos\Supermarket-mvp\bin\Debug\net8.0-windows\Supermarket-mvp.dll
+C:\Users\edife\source\repos\Supermarket-mvp\bin\Debug\net8.0-windows\Supermarket-mvp.pdb
+C:\Users\edife\source\repos\Supermarket-mvp\obj\Debug\net8.0-windows\Supermarket_mvp.Form1.resources
+C:\Users\edife\source\repos\Supermarket-mvp\obj\Debug\net8.0-windows\Supermarket-mvp.csproj.GenerateResource.cache
+C:\Users\edife\source\repos\Supermarket-mvp\obj\Debug\net8.0-windows\Supermarket-mvp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\edife\source\repos\Supermarket-mvp\obj\Debug\net8.0-windows\Supermarket-mvp.AssemblyInfoInputs.cache
+C:\Users\edife\source\repos\Supermarket-mvp\obj\Debug\net8.0-windows\Supermarket-mvp.AssemblyInfo.cs
+C:\Users\edife\source\repos\Supermarket-mvp\obj\Debug\net8.0-windows\Supermarket-mvp.csproj.CoreCompileInputs.cache
+C:\Users\edife\source\repos\Supermarket-mvp\obj\Debug\net8.0-windows\Supermarket-mvp.dll
+C:\Users\edife\source\repos\Supermarket-mvp\obj\Debug\net8.0-windows\refint\Supermarket-mvp.dll
+C:\Users\edife\source\repos\Supermarket-mvp\obj\Debug\net8.0-windows\Supermarket-mvp.pdb
+C:\Users\edife\source\repos\Supermarket-mvp\obj\Debug\net8.0-windows\Supermarket-mvp.genruntimeconfig.cache
+C:\Users\edife\source\repos\Supermarket-mvp\obj\Debug\net8.0-windows\ref\Supermarket-mvp.dll
