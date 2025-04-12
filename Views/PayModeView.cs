@@ -8,36 +8,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static Supermarket_mvp.Views.PayModeView;
 
 namespace Supermarket_mvp.Views
 {
-    public partial class PayModeView : Form IPayModeView
+    public partial class PayModeView : Form, IPayModeView
     {
-        private string message;
-        private bool isSuccessful;
         private bool isEdit;
+        private bool isSuccessful;
+        private string message;
 
         public PayModeView()
-
         {
             InitializeComponent();
-            AssociateAndRaiseViewEvents();
-            tabControl1.TabPages.Remove(tabPagePayModeDetail);
-
-
-        }
-
-        private void AssociateAndRaiseViewEvents()
-        {
-            BtnSearch.Click += delegate { SearchEvent?.Invoke(this, EventArgs.Empty); };
-
-            TxtSearch.KeyDown += (sender, e) =>
-            {
-                if (e.KeyCode == Keys.Enter)
-                {
-                    SearchEvent?.Invoke(this, EventArgs.Empty);
-                }
-            };
         }
 
         public string PayModeId
@@ -57,25 +40,25 @@ namespace Supermarket_mvp.Views
             get { return TxtPayModeObservation.Text; }
             set { TxtPayModeObservation.Text = value; }
         }
-        public string PayModeSearchValue
+        public string SearchValue
         {
             get { return TxtSearch.Text; }
             set { TxtSearch.Text = value; }
         }
 
-        public bool PayModeIsEdit
+        public bool IsEdit
         {
             get { return isEdit; }
             set { isEdit = value; }
         }
 
-        public bool PayModeIsSuccessful
+        public bool IsSuccessful
         {
             get { return isSuccessful; }
             set { isSuccessful = value; }
         }
 
-        public string PayModeMessage
+        public string Message
         {
             get { return message; }
             set { message = value; }
@@ -87,34 +70,14 @@ namespace Supermarket_mvp.Views
         public event EventHandler SaveEvent;
         public event EventHandler CancelEvent;
 
-        public void Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SetPayModeListBindingSource(BindingSource payModeList)
+        public void SetPayModeListBidingSource(BindingSource payModeList)
         {
             DgPayMode.DataSource = payModeList;
         }
 
-        void IPayModeView.Add(PayModeModel payModeModel)
+        internal interface IPayModeView
         {
-            throw new NotImplementedException();
-        }
 
-        void IPayModeView.Edit(PayModeModel payModeModel)
-        {
-            throw new NotImplementedException();
-        }
-
-        IEnumerable<PayModeModel> IPayModeView.GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        IEnumerable<PayModeModel> IPayModeView.GetByValue(string value)
-        {
-            throw new NotImplementedException();
         }
     }
 }
