@@ -3,6 +3,7 @@ using Supermarket_mvp._Repositories;
 using Supermarket_mvp.Models;
 using Supermarket_mvp.Properties;
 using Supermarket_mvp.Views;
+using static Supermarket_mvp.Views.PayModeView;
 
 namespace Supermarket_mvp
 {
