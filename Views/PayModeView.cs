@@ -17,6 +17,14 @@ namespace Supermarket_mvp.Views
         private bool isEdit;
         private bool isSuccessful;
         private string message;
+        private object payModeList;
+
+        public event EventHandler SearchEvent;
+        public event EventHandler AddNewEvent;
+        public event EventHandler EditEvent;
+        public event EventHandler DeleteEvent;
+        public event EventHandler SaveEvent;
+        public event EventHandler CancelEvent;
 
         public PayModeView()
         {
@@ -39,7 +47,11 @@ namespace Supermarket_mvp.Views
                 }
             };
         }
-        
+
+        public void SetPayModeListBildingSource(BindingSource payModeBindingSource)
+        {
+            DgPayMode.DataSource = payModeList;
+        }
 
         public string PayModeId
         {
@@ -81,21 +93,22 @@ namespace Supermarket_mvp.Views
             get { return message; }
             set { message = value; }
         }
-        public event EventHandler SearchEvent;
-        public event EventHandler AddNewEvent;
-        public event EventHandler EditEvent;
-        public event EventHandler DeleteEvent;
-        public event EventHandler SaveEvent;
-        public event EventHandler CancelEvent;
 
-        public void SetPayModeListBidingSource(BindingSource payModeList)
-        {
-            DgPayMode.DataSource = payModeList;
-        }
 
         internal interface IPayModeView
         {
+            event EventHandler SearchEvent;
+            event EventHandler AddNewEvent;
+            event EventHandler EditEvent;
+            event EventHandler DeleteEvent;
+            event EventHandler SaveEvent;
+            event EventHandler CancelEvent;
 
+            string SearchValue { get; set; }
+
+            
+            void Show();
+            void SetPayModeListBildingSource(BindingSource payModeBindingSource);
         }
     }
 }

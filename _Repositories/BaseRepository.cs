@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Configuration;
 
 namespace Supermarket_mvp._Repositories
 {
@@ -19,30 +20,8 @@ namespace Supermarket_mvp._Repositories
         {
             this.connectionString = connectionString;
         }
-        public IEnumerable<PayModeModel> GetALL()
-        {
-            var payModeList = new List<PayModeModel>();
-            using (var connection = new SqlConnection(connectionString))
-            using (var command = new SqlCommand())
-            {
-                connection.Open();
-                command.Connection = connection;
-                command.CommandText = "SELECT * FROM PayMode ORDER BY Pay_Mode_Id DESC";
-                using (var reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        var payModeModel = new PayModeModel();
-                        payModeModel.Id = (int)reader["Pay_Mode_Id"];
-                        payModeModel.Name = reader["Pay_Mode_Name"].ToString();
-                        payModeModel.Observation = reader["Pay_Mode_Observation"].ToString();
-                        payModeList.Add(payModeModel);
-                    }
-                }
-            }
-            return payModeList;
-        }
-      
+
+
 
         public void Delete(int id)
         {
@@ -88,6 +67,35 @@ namespace Supermarket_mvp._Repositories
         public void Add(PayModeModel payModeModel)
         {
             throw new NotImplementedException();
+        }
+
+        public IEnumerable<PayModeModel> GetAll()
+        {
+            var payModeList = new List<PayModeModel>();
+            using (var connection = new SqlConnection(connectionString))
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                SqlConnection sqlConnection = connection;
+                command.Connection = sqlConnection;
+                command.CommandText = "SELECT * FROM PayMode ORDER BY Pay_Mode_Id DESC";
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var payModeModel = new PayModeModel();
+                        payModeModel.Id = (int)reader["Pay_Mode_Id"];
+                        payModeModel.Name = reader["Pay_Mode_Name"].ToString();
+                        payModeModel.Observation = reader["Pay_Mode_Observation"].ToString();
+                        payModeList.Add(payModeModel);
+                    }
+                }
+            }
+            return payModeList;
+        }
+
+        internal class BaseRepository
+        {
         }
     }
 
