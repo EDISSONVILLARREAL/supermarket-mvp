@@ -75,7 +75,7 @@ namespace Supermarket_mvp._Repositories
             using (var connection = new SqlConnection(connectionString))
             using (var command = new SqlCommand())
             {
-                connection.Open();
+                NewMethod(connection);
                 SqlConnection sqlConnection = connection;
                 command.Connection = sqlConnection;
                 command.CommandText = "SELECT * FROM PayMode ORDER BY Pay_Mode_Id DESC";
@@ -92,6 +92,11 @@ namespace Supermarket_mvp._Repositories
                 }
             }
             return payModeList;
+        }
+
+        private static void NewMethod(SqlConnection connection)
+        {
+            connection.Open();
         }
 
         internal class BaseRepository

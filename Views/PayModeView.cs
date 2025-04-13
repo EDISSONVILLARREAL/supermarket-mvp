@@ -56,11 +56,12 @@ namespace Supermarket_mvp.Views
         }
         private static PayModeView instance;
 
-        public static PayModeView GetInstance()
+        public static PayModeView GetInstance(Form parentContainer)
         {
             if (instance == null || instance.IsDisposed)
             {
                 instance = new PayModeView();
+                instance.MdiParent = parentContainer;
             }
             else
             {
@@ -70,7 +71,6 @@ namespace Supermarket_mvp.Views
                 }
                 instance.BringToFront();
             }
-
             return instance;
         }
         public string PayModeId
@@ -137,6 +137,11 @@ namespace Supermarket_mvp.Views
 
             void SetPayModeListBildingSource(BindingSource payModeBindingSource);
             void Show();
+        }
+
+        private static IPayModeView GetInstance()
+        {
+            throw new NotImplementedException();
         }
     }
 }
