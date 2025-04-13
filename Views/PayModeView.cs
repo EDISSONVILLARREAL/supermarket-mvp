@@ -1,4 +1,6 @@
-﻿using Supermarket_mvp.Models;
+﻿using Supermarket_mvp._Repositories;
+using Supermarket_mvp.Models;
+using Supermarket_mvp.Presenters;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -52,7 +54,25 @@ namespace Supermarket_mvp.Views
         {
             DgPayMode.DataSource = payModeList;
         }
+        private static PayModeView instance;
 
+        public static PayModeView GetInstance()
+        {
+            if (instance == null || instance.IsDisposed)
+            {
+                instance = new PayModeView();
+            }
+            else
+            {
+                if (instance.WindowState == FormWindowState.Minimized)
+                {
+                    instance.WindowState = FormWindowState.Normal;
+                }
+                instance.BringToFront();
+            }
+
+            return instance;
+        }
         public string PayModeId
         {
             get { return TxtPayModeId.Text; }
@@ -94,6 +114,7 @@ namespace Supermarket_mvp.Views
             set { message = value; }
         }
 
+        public string sqlConnectionString { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         internal interface IPayModeView
         {
@@ -105,10 +126,17 @@ namespace Supermarket_mvp.Views
             event EventHandler CancelEvent;
 
             string SearchValue { get; set; }
+            string sqlConnectionString { get; set; }
 
-            
-            void Show();
+            private void ShowPayModeView(object? sender, EventArgs e)
+            {
+                IPayModeView view = PayModeView.GetInstance();
+                IPayModeRepository repository = new PayModeRepository(sqlConnectionString);
+                new PayModePresenter(view, repository);
+            }
+
             void SetPayModeListBildingSource(BindingSource payModeBindingSource);
+            void Show();
         }
     }
 }
