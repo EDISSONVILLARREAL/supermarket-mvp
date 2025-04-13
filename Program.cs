@@ -1,9 +1,8 @@
-using Supermarket_mvp.Presenters;
 using Supermarket_mvp._Repositories;
 using Supermarket_mvp.Models;
-using Supermarket_mvp.Properties;
 using Supermarket_mvp.Views;
-using static Supermarket_mvp.Views.PayModeView;
+using Supermarket_mvp.Properties;
+using Supermarket_mvp.Presenters;
 
 namespace Supermarket_mvp
 {
@@ -22,6 +21,8 @@ namespace Supermarket_mvp
             IMainView view = new MainView();
             new MainPresenter(view, sqlConnectionString);
             Application.Run((Form)view);
+
+
         }
     }
 }

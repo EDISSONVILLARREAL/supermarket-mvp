@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace Supermarket_mvp.Models
 {
@@ -11,9 +12,8 @@ namespace Supermarket_mvp.Models
         void Add(PayModeModel payModeModel);
         void Edit(PayModeModel payModeModel);
         void Delete(int id);
-        IEnumerable<PayModeModel> All { get; }
 
-        IEnumerable<PayModeModel> GetByValue(string value);
         IEnumerable<PayModeModel> GetAll();
+        IEnumerable<PayModeModel> GetByValue(string value);
     }
 }
