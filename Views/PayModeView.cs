@@ -1,7 +1,4 @@
-﻿using Supermarket_mvp._Repositories;
-using Supermarket_mvp.Models;
-using Supermarket_mvp.Presenters;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static Supermarket_mvp.Views.PayModeView;
 
 namespace Supermarket_mvp.Views
 {
@@ -19,22 +15,12 @@ namespace Supermarket_mvp.Views
         private bool isEdit;
         private bool isSuccessful;
         private string message;
-        private object payModeList;
-
-        public event EventHandler SearchEvent;
-        public event EventHandler AddNewEvent;
-        public event EventHandler EditEvent;
-        public event EventHandler DeleteEvent;
-        public event EventHandler SaveEvent;
-        public event EventHandler CancelEvent;
 
         public PayModeView()
         {
             InitializeComponent();
             AssociateAndRaiseViewEvents();
             tabControl1.TabPages.Remove(tabPagePayModeDetail);
-
-
         }
 
         private void AssociateAndRaiseViewEvents()
@@ -50,18 +36,25 @@ namespace Supermarket_mvp.Views
             };
         }
 
-        public void SetPayModeListBildingSource(BindingSource payModeBindingSource)
+        public event EventHandler SearchEvent;
+        public event EventHandler AddNewEvent;
+        public event EventHandler EditEvent;
+        public event EventHandler DeleteEvent;
+        public event EventHandler SaveEvent;
+        public event EventHandler CancelEvent;
+
+        public void SetPayModelistBildingSource(BindingSource payModelist)
         {
-            DgPayMode.DataSource = payModeList;
+            DgPayMode.DataSource = payModelist;
         }
+
         private static PayModeView instance;
 
-        public static PayModeView GetInstance(Form parentContainer)
+        public static PayModeView GetInstance()
         {
             if (instance == null || instance.IsDisposed)
             {
                 instance = new PayModeView();
-                instance.MdiParent = parentContainer;
             }
             else
             {
@@ -71,6 +64,7 @@ namespace Supermarket_mvp.Views
                 }
                 instance.BringToFront();
             }
+
             return instance;
         }
         public string PayModeId
@@ -113,35 +107,9 @@ namespace Supermarket_mvp.Views
             get { return message; }
             set { message = value; }
         }
+    }
 
-        public string sqlConnectionString { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
-        internal interface IPayModeView
-        {
-            event EventHandler SearchEvent;
-            event EventHandler AddNewEvent;
-            event EventHandler EditEvent;
-            event EventHandler DeleteEvent;
-            event EventHandler SaveEvent;
-            event EventHandler CancelEvent;
-
-            string SearchValue { get; set; }
-            string sqlConnectionString { get; set; }
-
-            private void ShowPayModeView(object? sender, EventArgs e)
-            {
-                IPayModeView view = PayModeView.GetInstance();
-                IPayModeRepository repository = new PayModeRepository(sqlConnectionString);
-                new PayModePresenter(view, repository);
-            }
-
-            void SetPayModeListBildingSource(BindingSource payModeBindingSource);
-            void Show();
-        }
-
-        private static IPayModeView GetInstance()
-        {
-            throw new NotImplementedException();
-        }
+    internal interface IPayModeView
+    {
     }
 }
