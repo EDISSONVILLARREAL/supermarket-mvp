@@ -28,12 +28,10 @@ namespace Supermarket_mvp.Properties {
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Supermarket;Integrated Securit" +
             "y=True")]
-        public string Valor {
+        public string SqlConnection {
             get {
-                return ((string)(this["Valor"]));
+                return ((string)(this["SqlConnection"]));
             }
         }
-
-        public string SqlConnection { get; internal set; }
     }
 }

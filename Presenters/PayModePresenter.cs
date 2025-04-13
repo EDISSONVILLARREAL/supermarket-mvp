@@ -11,14 +11,11 @@ namespace Supermarket_mvp.Presenters
     internal class PayModePresenter
     {
         private IPayModeView view;
-        private IPayModeRepository repository;
-        private BindingSource payModeBindingSource;
-        private IEnumerable<PayModeModel> payModelist;
 
         public PayModePresenter(IPayModeView view, IPayModeRepository repository)
         {
             this.payModeBindingSource = new BindingSource();
-
+            
             this.view = view;
             this.repository = repository;
 
@@ -30,40 +27,52 @@ namespace Supermarket_mvp.Presenters
             this.view.CancelEvent += CancelAction;
 
             this.view.SetPayModelistBildingSource(payModeBindingSource);
-            loadAllPayModelist();
+
+            loadAllPayModelList();
 
             this.view.Show();
         }
 
-        private void loadAllPayModelist()
+        private void loadAllPayModelList()
         {
-            payModelist = repository.GetAll();
-            payModeBindingSource.DataSource = payModelist;
+            payModelList = repository.GetAll();
+            payModeBindingSource.DataSource = payModelList;
         }
 
-        private void SearchPayMode(object? sender, EventArgs e)
-        {
-            bool emptyValue = string.IsNullOrWhiteSpace(this.view.SearchValue);
-            if (emptyValue == false)
-            {
-                payModelist = repository.GetByValue(this.view.SearchValue);
-            }
-            else
-            {
-                payModelist = repository.GetAll();
-            }
-
-            payModeBindingSource.DataSource = payModelist;
-        }
-
-        private void AddNewPayMode(object? sender, EventArgs e)
+        private void CancelAction(object? sender, EventArgs e)
         {
             throw new NotImplementedException();
         }
 
-        private void LoadSelectPayModeToEdit(object? sender, EventArgs e)
+        private void SavePayMode(object? sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            // Se crea un objeto de la clase PayModeModel y se asignan los datos
+            // de las cajas de texto de la vista
+            var payMode = new PayModeModel();
+            payMode.Id = Convert.ToInt32(view.PayModeId);
+            payMode.Name = view.PayModeName;
+            payMode.Observation = view.PayModeObservation;
+
+            try
+            {
+                if (view.IsEdit)
+                {
+                    repository.Edit(payMode);
+                    view.Message = "PayMode edited successfully";
+                }
+                else
+                {
+                    repository.Add(payMode);
+                    view.Message = "PayMode added successfully";
+                }
+            }
+            catch (Exception ex)
+            {
+                // Si ocurre una excepción se configura IsSuccessful en false
+                // y a la propiedad Message de la vista se asigna el mensaje de la excepción
+                view.IsSuccessful = false;
+                view.Message = ex.Message;
+            }
         }
 
         private void DeleteSelectedPayMode(object? sender, EventArgs e)
@@ -71,14 +80,43 @@ namespace Supermarket_mvp.Presenters
             throw new NotImplementedException();
         }
 
-        private void SavePayMode(object? sender, EventArgs e)
+        private void LoadSelectPayModeToEdit(object? sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            // Se obtiene el objeto del datagridview que se encuentra seleccionado
+            var payMode = (PayModeModel)payModeBindingSource.Current;
+
+            // Se cambia el contenido de las cajas de texto por el objeto recuperado
+            // del datagridview
+            view.PayModeId = payMode.Id.ToString();
+            view.PayModelName = payMode.Name;
+            view.PayModeObservation = payMode.Observation;
+
+            // Se establece el modo como edición
+            view.IsEdit = true;
         }
 
-        private void CancelAction(object? sender, EventArgs e)
+        private void AddNewPayMode(object? sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            view.IsEdit = false;
         }
+
+        private void SearchPayMode(object? sender, EventArgs e)
+        {
+            bool emptyValue = string.IsNullOrWhiteSpace(this.view.SearchValue);
+            if (emptyValue == false)
+            {
+                payModelList = repository.GetByValue(this.view.SearchValue);
+            }
+            else
+            {
+                payModelList = repository.GetAll();
+            }
+            payModeBindingSource.DataSource = payModelList;
+
+        }
+
+        private IPayModeRepository repository;
+        private BindingSource payModeBindingSource;
+        private IEnumerable<PayModeModel> payModelList;
     }
 }

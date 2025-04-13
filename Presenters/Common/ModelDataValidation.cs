@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
@@ -9,23 +10,34 @@ namespace Supermarket_mvp.Presenters.Common
 {
     internal class ModelDataValidation
     {
+
+        
         public void Validate(object model)
         {
+
             string errorMessage = "";
-            var validationResults = new List<ValidationResult>();
-            var validationContext = new ValidationContext(model);
+            List<ValidationResult> validationResults = new List<ValidationResult>();
+            ValidationContext validationContext = new ValidationContext(model);
             bool isValid = Validator.TryValidateObject(
                 model, validationContext, validationResults, true);
 
-            if (!isValid)
+            if (isValid == false)
             {
                 foreach (var item in validationResults)
                 {
                     errorMessage += item.ErrorMessage + "\n";
                 }
-
                 throw new Exception(errorMessage);
             }
         }
+
+        [DisplayName("Pay Mode Name")]
+        [Required(ErrorMessage = "Pay mode name is required")]
+        [StringLength(50, MinimumLength = 3,
+    ErrorMessage = "Pay mode name must be between 3 and 50 characters")]
+        public string Name { get; set; }
+
+
     }
 }
+

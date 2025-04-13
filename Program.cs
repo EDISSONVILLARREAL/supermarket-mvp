@@ -21,8 +21,6 @@ namespace Supermarket_mvp
             IMainView view = new MainView();
             new MainPresenter(view, sqlConnectionString);
             Application.Run((Form)view);
-
-
         }
     }
 }
